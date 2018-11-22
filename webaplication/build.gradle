@@ -29,6 +29,7 @@ dependencies {
 
 gretty {
     httpPort = 8282
+    jacocoEnable = false
 }
 test {
     systemProperties 'property': 'value'
