@@ -18,7 +18,7 @@ pipeline{
                         steps{
                                 echo 'Publishing Artifact'
                                 sh './webaplication/gradlew uploadArchives -p webaplication'
-                                archiveArtifacts artifacts: '**/repos/*.jar'
+                                archiveArtifacts artifacts: '**/repos/*.war'
                         }
                 }
         }
