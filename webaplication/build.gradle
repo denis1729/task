@@ -1,3 +1,9 @@
+plugins {
+  id "org.sonarqube" version "2.6.2"
+  id "org.owasp.dependencycheck" version "3.3.4"
+  }
+apply plugin: 'java'
+apply plugin: 'jacoco'
 buildscript {
     repositories {
         jcenter()
@@ -17,8 +23,44 @@ repositories {
 dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '1.4'
     compile group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 gretty {
     httpPort = 8282
 }
+test {
+    systemProperties 'property': 'value'
+}
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
+task task1 {
+    doLast {
+        println "This is a new task."
+  }
+}
+
+task task2 (dependsOn: 'task1') {
+    doLast {
+        println "This is another task."
+    }
+}
+task task3(type: Exec){
+    commandLine 'cdm','/c','git status'
+
+
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+ check.dependsOn jacocoTestReport
+
